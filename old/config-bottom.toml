@@ -1,0 +1,48 @@
+[[block]]
+ap_format = "{ssid} {strength}"
+block = "networkmanager"
+device_format = "{icon} {name} {ap}"
+interface_name_include = ["enp5s0"]
+
+[[block]]
+block = "net"
+device = "enp5s0"
+format = "{speed_up;K} {speed_down;K}"
+format_alt = "{ip} {speed_up;K*b} {graph_up:8;M*_b#50} {speed_down;K*b} {graph_down:8;M*_b#50}"
+hide_inactive = true
+hide_missing = true
+
+[block.theme_overrides]
+idle_bg = "#050622"
+idle_fg = "#c34b37"
+
+[[block]]
+ap_format = "{ssid} {strength}"
+block = "networkmanager"
+device_format = "{icon} {name} {ap}"
+interface_name_include = ["wlp3s0"]
+
+[[block]]
+block = "net"
+device = "wlp3s0"
+format = "{ssid} {signal_strength} {speed_up;K} {speed_down;K}"
+format_alt = "{ssid} {signal_strength} {ip} {speed_up;K*b} {graph_up:8;M*_b#50} {speed_down;K*b} {graph_down:8;M*_b#50}"
+hide_inactive = true
+hide_missing = true
+
+[block.theme_overrides]
+idle_bg = "#950c7d"
+idle_fg = "#e1fc11"
+
+[[block]]
+block = "external_ip"
+
+[block.theme_overrides]
+idle_bg = "#a6175c"
+idle_fg = "#e1fc11"
+
+[icons]
+name = "awesome6"
+
+[theme]
+name = "dracula"
