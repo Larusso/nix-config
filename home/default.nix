@@ -4,6 +4,7 @@
   imports = [
     ./user/larusso
     ./theme/britannia.nix
+    ./theme/wallpaper.nix
     ./role/linux/i3.nix
     ./programs.nix
   ];

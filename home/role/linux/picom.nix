@@ -5,11 +5,11 @@
     ];
 
     services.picom = {
-        enable = true;
-        extraArgs = ["--no-vsync" "--experimental-backends"];
+        enable = false;
+        extraArgs = ["--no-vsync"];
         backend = "glx";
         vSync = false;
-        #package = pkgs.picom-jonaburg;
+        # package = pkgs.picom-jonaburg;
     
         wintypes = {
             tooltip = { fade = false; shadow = false; };

@@ -315,7 +315,7 @@
           bindsym Escape mode "default"
         }
 
-        exec_always ${pkgs.feh}/bin/feh --no-fehbg --bg-scale --recursive --randomize ~/Pictures/wallpapers/4k/*
+        exec_always ${pkgs.feh}/bin/feh --no-fehbg --bg-scale --recursive --randomize ~/.config/i3/wallpapers/*
       '';
     };
 

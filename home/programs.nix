@@ -3,13 +3,33 @@
 {
   nixpkgs.config.allowUnfree = true;
 
-  home.packages = [
-    pkgs.git-crypt
+  home.packages = with pkgs; [
+    git-crypt
+    awscli
+    sshpass
+    neofetch
+    zip
+    xz
+    unzip
+    p7zip
+    ripgrep
+    jq
+    eza
+    fzf
+    which
+    gnutar
+    gnused
+    glow # markdown preview in terminal
 
-    pkgs.awscli
+    strace
+    ltrace
+    lsof
 
-    # ssh
-    pkgs.sshpass
+    sysstat
+    lm_sensors
+    ethtool
+    pciutils
+    usbutils
   ];
 
   programs.vscode = {
