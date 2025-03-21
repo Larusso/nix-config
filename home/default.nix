@@ -11,7 +11,6 @@
   home.packages = [
     pkgs.yubikey-manager-qt
     pkgs.yubikey-manager
-    pkgs.via
   ];
 
   programs.home-manager.enable=true;

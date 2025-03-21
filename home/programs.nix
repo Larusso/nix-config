@@ -18,7 +18,7 @@
       dracula-theme.theme-dracula
       vscodevim.vim
       arrterian.nix-env-selector
-      matklad.rust-analyzer 
+      rust-lang.rust-analyzer 
       bbenoist.nix
       brettm12345.nixfmt-vscode
       vadimcn.vscode-lldb

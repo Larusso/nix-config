@@ -319,10 +319,7 @@
       '';
     };
 
-
-    programs.i3status-rust = {
-      enable = true;
-      bars = let britannia_colors = {
+    home.file.".config/i3status-rust/config-top.toml" = let britania_colors = {
             foreground_1 = config.theme.color3;
             background_1 = config.theme.color1;
 
@@ -352,168 +349,166 @@
 
             foreground_10 = config.theme.color1;
             background_10 = config.theme.color10;
-          }; in {
-        top = {
-          blocks = [
-            {
-              block = "focused_window";
-              max_width = 50;
-              show_marks = "visible";
-              theme_overrides = {
-                idle_bg = britannia_colors.background_10;
-                idle_fg = britannia_colors.foreground_10;
-              };
-            }
-            # {
-            #   block = "hueshift";
-            # }
+    }; in {
+      text = ''
+        [icons]
+        icons = "awesome6"
+
+        [theme]
+        theme = "dracula"
+
+        [[block]]
+        block = "focused_window"
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_10}"
+        idle_fg = "${britania_colors.foreground_10}"
+
+        [[block]]
+        block = "disk_space"
+        alert = 10.0
+        info_type = "available"
+        interval = 60
+        path = "/"
+        alert_unit = "GB"
+        warning = 20.0
+        format = " $icon $available "
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_6}"
+        idle_fg = "${britania_colors.foreground_6}"
+
+        [[block]]
+        block = "memory"
+        format = " $icon $mem_used/$mem_total($mem_used_percents) "
+        format_alt = " $icon_swap $swap_free.eng(width:3,unit:B,prefix:Mi)/$swap_total.eng(width:3,unit:B,prefix:Mi)($swap_used_percents.eng(widht:2)) "
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_5}"
+        idle_fg = "${britania_colors.foreground_5}"
+
+        [[block]]
+        block = "cpu"
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_4}"
+        idle_fg = "${britania_colors.foreground_4}"
+
+        [[block]]
+        block = "load"
+        format = " $icon 1min avg: $1m.eng(w:4) "
+        interval = 1
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_3}"
+        idle_fg = "${britania_colors.foreground_3}"
+
+        [[block]]
+        block = "temperature"
+        format = " $icon $max max "
+        format_alt = " $icon $min min, $max max, $average avg "
+        interval = 10
+        good = 35
+        idle = 40
+        info = 55
+        warning = 60
+
+        [[block]]
+        block = "sound"
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_2}"
+        idle_fg = "${britania_colors.foreground_2}"
+
+        [[block]]
+        block = "time"
+        interval = 60
+        timezone = "Europe/Berlin"
+        format = " $icon $timestamp.datetime(f:%R) "
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_1}"
+        idle_fg = "${britania_colors.foreground_1}"
+
+        [[block]]
+        block = "menu"
+        text = "⏻"
+        [[block.items]]
+        display = " -&gt;   Sleep   &lt;-"
+        cmd = "systemctl suspend"
+        [[block.items]]
+        display = " -&gt; Power Off &lt;-"
+        cmd = "systemctl poweroff"
+        confirm_msg = "Are you sure you want to power off?"
+        [[block.items]]
+        display = " -&gt;  Reboot   &lt;-"
+        cmd = "systemctl reboot"
+        confirm_msg = "Are you sure you want to reboot?"
+      '';
+    };
+
+    home.file.".config/i3status-rust/config-bottom.toml" = let britania_colors = {
+            foreground_1 = config.theme.color3;
+            background_1 = config.theme.color1;
+
+            foreground_2 = config.theme.color10;
+            background_2 = config.theme.color2;
+
+            foreground_3 = config.theme.color10;
+            background_3 = config.theme.color3;
+
+            foreground_4 = config.theme.color3;
+            background_4 = config.theme.color4;
+
+            foreground_5 = config.theme.color10;
+            background_5 = config.theme.color5;
+
+            foreground_6 = config.theme.color3;
+            background_6 = config.theme.color6;
+
+            foreground_7 = config.theme.color10;
+            background_7 = config.theme.color7;
             
-            {
-              block = "disk_space";
-              path = "/";
-              alias = "/";
-              info_type = "available";
-              unit = "GB";
-              interval = 60;
-              warning = 20.0;
-              alert = 10.0;
-              format = "{icon} {available}";
-              theme_overrides = {
-                idle_bg = britannia_colors.background_6;
-                idle_fg = britannia_colors.foreground_6;
-              };
-            }
-            {
-              block = "memory";
-              display_type = "memory";
-              format_mem = "{mem_used}/{mem_total}({mem_used_percents})";
-              format_swap = "{swap_used}/{swap_total}({swap_used_percents})";
-              theme_overrides = {
-                idle_bg = britannia_colors.background_5;
-                idle_fg = britannia_colors.foreground_5;
-              };
-            }
-            {
-              block = "cpu";
-              format = "{utilization} ({frequency})";
-              interval = 1;
-              theme_overrides = {
-                idle_bg = britannia_colors.background_4;
-                idle_fg = britannia_colors.foreground_4;
-              };
-            }
-            {
-              block = "load";
-              interval = 1;
-              format = "{1m}";
-              theme_overrides = {
-                idle_bg = britannia_colors.background_3;
-                idle_fg = britannia_colors.foreground_3;
-              };
-            }
-            {
-              block = "temperature";
-              inputs = ["CPU Temperature"];
-              good = 35;
-              idle = 40;
-              info = 55;
-              warning = 60;
-            }
-            { 
-              block = "sound"; 
-              theme_overrides = {
-                idle_bg = britannia_colors.background_2;
-                idle_fg = britannia_colors.foreground_2;
-              };
-            }
-            # { 
-            #   block = "toogle";
+            foreground_8 = config.theme.color10;
+            background_8 = config.theme.color8;
+            
+            foreground_9 = config.theme.color3;
+            background_9 = config.theme.color9;
+
+            foreground_10 = config.theme.color1;
+            background_10 = config.theme.color10;
+    }; in {
+      text = ''
+        [icons]
+        icons = "awesome6"
+
+        [theme]
+        theme = "dracula"
+
+        [[block]]
+        block = "net"
+        format = " $icon {$signal_strength $ssid $frequency|Wired connection} via $device "
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_9}"
+        idle_fg = "${britania_colors.foreground_9}"
+
+        [[block]]
+        block = "xrandr"
+        format = " $icon $brightness $resolution "
 
 
-            # }
-            {
-              block = "time";
-              interval = 60;
-              timezone = "Europe/Berlin";
-              format = "%R";
-              theme_overrides = {
-                idle_bg = britannia_colors.background_1;
-                idle_fg = britannia_colors.foreground_1;
-              };
-            }
-            {
-              block = "custom";
-              command = "echo '{\"state\": \"Idle\", \"text\": \"\⏻\"}'";
-              json = true;
-              interval = "once";
-              on_click = "systemctl $(echo -e 'suspend\npoweroff\nreboot' | ${pkgs.dmenu}/bin/dmenu)";
-            }
-          ];
-          settings = {
-            theme =  {
-              name = "dracula";
-            };
-            icons = {
-              name = "awesome6";
-            };
-          };
-        };
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_8}"
+        idle_fg = "${britania_colors.foreground_8}"
 
-        bottom = {
-          blocks = [
-            {
-              block = "networkmanager";
-              ap_format = "{ssid} {strength}";
-              device_format = "{icon} {name} {ap}";
-              interface_name_include = ["enp5s0"];
-            }
-            {
-              block = "net";
-              device = "enp5s0";
-              format = "{speed_up;K} {speed_down;K}";
-              format_alt = "{ip} {speed_up;K*b} {graph_up:8;M*_b#50} {speed_down;K*b} {graph_down:8;M*_b#50}";
-              hide_missing = true;
-              hide_inactive = true;
-              theme_overrides = {
-                idle_bg = britannia_colors.background_9;
-                idle_fg = britannia_colors.foreground_9;
-              };
-            }
-            {
-              block = "networkmanager";
-              ap_format = "{ssid} {strength}";
-              device_format = "{icon} {name} {ap}";
-              interface_name_include = ["wlp3s0"];
-            }
-            {
-              block = "net";
-              device = "wlp3s0";
-              format = "{ssid} {signal_strength} {speed_up;K} {speed_down;K}";
-              format_alt = "{ssid} {signal_strength} {ip} {speed_up;K*b} {graph_up:8;M*_b#50} {speed_down;K*b} {graph_down:8;M*_b#50}";
-              hide_missing = true;
-              hide_inactive = true;
-              theme_overrides = {
-                idle_bg = britannia_colors.background_8;
-                idle_fg = britannia_colors.foreground_8;
-              };
-            }
-            {
-              block = "external_ip";
-              theme_overrides = {
-                idle_bg = britannia_colors.background_7;
-                idle_fg = britannia_colors.foreground_7;
-              };
-            }
-          ];
-          settings = {
-            theme =  {
-              name = "dracula";
-            };
-            icons = {
-              name = "awesome6";
-            };
-          };
-        };
-      };
+        [[block]]
+        block = "external_ip"
+
+        [block.theme_overrides]
+        idle_bg = "${britania_colors.background_7}"
+        idle_fg = "${britania_colors.foreground_7}"
+
+      '';
     };
 }
