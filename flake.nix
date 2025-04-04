@@ -25,7 +25,7 @@
           scriptPackage = name: { srcPath }: with final; stdenv.mkDerivation rec {
             pname = name;
             version = "1.0.0";
-            src = ./tools;
+            src = ./.;
 
             installPhase = ''
               mkdir -p $out/bin
@@ -35,7 +35,7 @@
           };
         in {
           import-ssh-key = scriptPackage "import-ssh-key" {
-            srcPath = ./scripts/import-ssh-key.sh;
+            srcPath = ./tools/scripts/import-ssh-key.sh;
           };
         };
 
@@ -44,12 +44,12 @@
       #  Machine definitions
       # --------------------------------------------------
 
-      nixosConfigurations = forNixOsSystem (system: {
-        "nixos-vm-${system}" = nixpkgs.lib.nixosSystem {
-        inherit system;
-
-        nixpkgs.overlays = [ self.overlay ];
+      nixosConfigurations.nixos-vm = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
         modules = [
+          {
+            nixpkgs.overlays = [ self.overlay ];
+          }
           ./hosts/nixos-vm
           home-manager.nixosModules.home-manager
           {
@@ -63,8 +63,10 @@
       nixosConfigurations.nixos-utm = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
+          {
+            nixpkgs.overlays = [ self.overlay ];
+          }
           ./hosts/nixos-utm
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -76,8 +78,10 @@
       nixosConfigurations.ripper = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          {
+            nixpkgs.overlays = [ self.overlay ];
+          }
           ./hosts/ripper
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
