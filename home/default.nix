@@ -12,6 +12,7 @@
   home.packages = [
     pkgs.yubikey-manager-qt
     pkgs.yubikey-manager
+    pkgs.import-ssh-key
   ];
 
   programs.home-manager.enable=true;
