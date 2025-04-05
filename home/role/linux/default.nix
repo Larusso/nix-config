@@ -12,12 +12,16 @@
         };
     };
 
+
     programs.zsh = {
         initExtra = ''
             export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
             gpgconf --launch gpg-agent
             gpg-connect-agent updatestartuptty /bye
         '';
+        sessionVariables = {
+            GNUPGHOME = "${config.home.homeDirectory}/.config/gnupg";
+        };
     };
 
     home.file.".config/gnupg/gpg-agent.conf".text = ''

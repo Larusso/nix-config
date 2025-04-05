@@ -5,11 +5,12 @@
     ];
 
     services.picom = {
-        enable = false;
+        enable = false; #todo: use defaults and overrides!
         extraArgs = ["--no-vsync"];
         backend = "glx";
         vSync = false;
-        # package = pkgs.picom-jonaburg;
+        #package = pkgs.picom-jonaburg;
+
     
         wintypes = {
             tooltip = { fade = false; shadow = false; };

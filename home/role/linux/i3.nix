@@ -3,7 +3,7 @@
     imports = [
       ./default.nix
       ./autorandr.nix
-      # ./picom.nix
+      ./picom.nix
     ];
 
     home.packages = [
